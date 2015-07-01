@@ -1,0 +1,41 @@
+<div class="row">
+<div class="col-sm-4">
+  <p class="lead">Where are you?</p>
+  <input class="form-control" placeholder="Enter zip code, city, or address"/>
+  <a id="geolocate" href="javascript:void(0)" ng-click="getLocation()">Use Current Location<div ng-show="geolocating" class="spinner-icon"></div></a>
+  <br/><br/>
+  <p class="lead">What do you want to recycle?</p>  
+  <select class="form-control" ng-options="material as material.Type for material in materials" ng-model="material" ng-change="query()">
+    <option value="">Select a material...</option>
+  </select>
+  <em>{{material.Items}}</em>
+  <br/><br/>
+  <p class="lead">Are you a resident or business?</p>  
+  <div class="btn-group">
+      <label class="btn btn-primary" ng-model="userType.home" btn-checkbox ng-click="residentChanged()">Residential</label>
+      <label class="btn btn-primary" ng-model="userType.business" btn-checkbox ng-click="businessChanged()">Business</label>
+  </div>
+</div>
+<div class="col-sm-8">
+  <div id="map">
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table">
+      <thead>
+        <tr><th>Name</th><th>Type</th><th>Address</th><th>Hours</th><th>Open To</th><th>Distance</th></tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="facility in features| orderBy: 'properties.DISTANCE'">
+          <td>{{facility.properties.OPERATOR}}</td>
+          <td>{{facility.properties.TYPE}}</td>
+          <td>{{facility.properties.ADDRESS}}</td>
+          <td>{{facility.properties.HOURS}}</td>
+          <td>{{facility.properties.OPENTO}}</td>
+          <td>{{facility.properties.DISTANCE.toFixed(2)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
