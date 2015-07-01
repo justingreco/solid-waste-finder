@@ -12,8 +12,8 @@
   <br/><br/>
   <p class="lead">Are you a resident or business?</p>  
   <div class="btn-group">
-      <label class="btn btn-primary" ng-model="userType.home" btn-checkbox ng-click="residentChanged()">Residential</label>
-      <label class="btn btn-primary" ng-model="userType.business" btn-checkbox ng-click="businessChanged()">Business</label>
+      <label class="btn btn-primary" ng-model="userType" btn-radio="'resident'" ng-click="userTypeChanged()">Resident</label>
+      <label class="btn btn-primary" ng-model="userType" btn-radio="'business'" ng-click="userTypeChanged()">Business</label>
   </div>
 </div>
 <div class="col-sm-8">

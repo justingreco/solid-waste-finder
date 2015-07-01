@@ -11,10 +11,7 @@ angular.module('solidWasteFinderApp')
     var map, from, locationGroup, closestFacility;
     $scope.features = [];
     var facilities = null;
-    $scope.userType = {
-      home: true,
-      business: true
-    };
+    $scope.userType = 'resident';
     $scope.isResident = true;
     $scope.isBusiness = true;
     var addLocationToMap = function (latlng) {
@@ -74,9 +71,9 @@ angular.module('solidWasteFinderApp')
       }
       if ($scope.userType.home && $scope.userType.business) {
 
-      } else if ($scope.userType.home) {
+      } else if ($scope.userType === 'resident') {
         whereArr.push("OPENTO IN ('Residents and Businesses', 'Residents only')");
-      } else if ($scope.userType.business) {
+      } else if ($scope.userType === 'business') {
         whereArr.push("OPENTO IN ('Residents and Businesses', 'Businesses only')");
       }
       if (whereArr.length === 0) {
@@ -97,26 +94,6 @@ angular.module('solidWasteFinderApp')
         }
       });
       facilities.setWhere(where);
-    };
-    $scope.filterByCategory = function (facility) {
-      console.log('filter');
-      var openTo = [];
-      if ($scope.isResident && $scope.isBusiness) {
-        openTo = ["Residents and Businesses", "Residents only", "Businesses only"];
-      } else if ($scope.userType.home) {
-        openTo = ["Residents and Businesses", "Residents only"];
-      } else if ($scope.userType.business) {
-        openTo = ["Residents and Businesses", "Businesses only"];
-      }
-      if ($scope.material && openTo.length > 0) {
-        return $scope.material.categories.indexOf(facility.feature.properties.CATEGORY) > -1 && openTo.indexOf(facility.feature.properties.OPENTO) > -1;
-      } else if ($scope.material) {
-        return $scope.material.categories.indexOf(facility.feature.properties.CATEGORY) > -1;
-      } else if (openTo.length > 0) {
-        return openTo.indexOf(facility.feature.properties.OPENTO) > -1;
-      } else {
-        return true;
-      }
     };
     $scope.userTypeChanged =  function () {
       $timeout(function () {
