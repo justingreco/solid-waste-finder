@@ -17,7 +17,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
-    'geolocation','angular-toArrayFilter'
+    'geolocation'
   ])
   .config(function ($routeProvider) {
     $routeProvider
