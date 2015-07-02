@@ -35,7 +35,7 @@ angular.module('solidWasteFinderApp')
       var nearest = turf.nearest(from, featureCollection);
       var bounds = L.geoJson(from).getBounds();
       bounds = bounds.extend(L.geoJson(nearest).getBounds());
-      map.fitBounds([bounds], {padding: [100,100]});
+      map.fitBounds([bounds], {padding: [135,135]});
       closestFacility.clearLayers();
       var redMarker = L.AwesomeMarkers.icon({
         icon: 'trash',
