@@ -11,6 +11,7 @@ angular.module('solidWasteFinderApp')
   var map, facilities, from, locationGroup, closestFacility;
   $scope.features = [];
   $scope.userType = 'resident';
+  $scope.showDistance = false;
   $scope.searchByLocation = function (input) {
     if (/^\d+$/.test(input) && input.length === 5) {
       searchByZip(input);
@@ -80,6 +81,7 @@ angular.module('solidWasteFinderApp')
     locationGroup.addLayer(L.marker(latlng, {icon:icon}));
   };
   var measureDistance = function (from, features) {
+    $scope.showDistance = true;
     angular.forEach(features, function (feature) {
       var distance = turf.distance(from, feature, "miles");
       console.log(feature.geometry.coordinates);

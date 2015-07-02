@@ -23,6 +23,13 @@
   height: 500px;
 }
 
+th {
+  text-align: center;
+}
+td {
+  text-align: center;
+}
+
 .navbar-inverse {
   margin: 0px auto 0px auto;
   height: 51px;
