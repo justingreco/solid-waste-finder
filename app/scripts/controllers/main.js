@@ -100,6 +100,9 @@ angular.module('solidWasteFinderApp')
         $scope.query();
       });
     };
+    $scope.tableRowClicked = function (facility) {
+      map.setView([facility.geometry.coordinates[1], facility.geometry.coordinates[0]], 16);
+    };
     var createMap = function () {
       map = L.map('map').setView([35.81889, -78.64447], 10);
       L.esri.basemapLayer('Gray').addTo(map);

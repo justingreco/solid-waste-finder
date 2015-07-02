@@ -29,7 +29,7 @@
         <tr><th>Name</th><th>Type</th><th>Address</th><th>Hours</th><th>Open To</th><th>Distance</th></tr>
       </thead>
       <tbody>
-        <tr ng-repeat="facility in features| orderBy: 'properties.DISTANCE'">
+        <tr ng-repeat="facility in features| orderBy: 'properties.DISTANCE'" ng-click="tableRowClicked(facility)">
           <td>{{facility.properties.OPERATOR}}</td>
           <td>{{facility.properties.TYPE}}</td>
           <td>{{facility.properties.ADDRESS}}</td>
