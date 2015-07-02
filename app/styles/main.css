@@ -29,6 +29,9 @@ th {
 td {
   text-align: center;
 }
+tbody tr {
+  cursor: pointer;
+}
 
 .navbar-inverse {
   margin: 0px auto 0px auto;
@@ -65,10 +68,15 @@ td {
   }
 }
 
+#geolocate {
+  float: left;
+}
+
 .spinner-icon {
   width: 14px;
   height: 14px;
-
+  float:right;
+  margin-left: 10px;
   border:  solid 2px transparent;
   border-top-color:  #29d;
   border-left-color: #29d;
