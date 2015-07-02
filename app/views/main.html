@@ -2,19 +2,24 @@
 <div class="row">
 <div class="col-sm-4">
   <p class="lead">Where are you?</p>
-  <input class="form-control" placeholder="Enter zip code, city, or address"/>
+  <form ng-submit="searchByLocation(searchInput)">
+      <div class="form-group has-feedback">
+          <input ng-model="searchInput" type="text" class="form-control input-lg" placeholder="Enter zip code or address"/>
+          <span class="glyphicon glyphicon-search form-control-feedback"></span>
+      </div>    
+  </form>
   <a id="geolocate" href="javascript:void(0)" ng-click="getLocation()">Use Current Location<div ng-show="geolocating" class="spinner-icon"></div></a>
   <br/><br/>
   <p class="lead">What do you want to recycle?</p>  
-  <select class="form-control" ng-options="material as material.Type for material in materials" ng-model="material" ng-change="query()">
+  <select class="form-control input-lg" ng-options="material as material.Type for material in materials" ng-model="material" ng-change="query()">
     <option value="">Select a material...</option>
   </select>
   <em>{{material.Items}}</em>
   <br/><br/>
   <p class="lead">Are you a resident or business?</p>  
   <div class="btn-group">
-      <label class="btn btn-primary" ng-model="userType" btn-radio="'resident'" ng-click="userTypeChanged()">Resident</label>
-      <label class="btn btn-primary" ng-model="userType" btn-radio="'business'" ng-click="userTypeChanged()">Business</label>
+      <label class="btn btn-primary btn-lg" ng-model="userType" btn-radio="'resident'" ng-click="userTypeChanged()">Resident</label>
+      <label class="btn btn-primary btn-lg" ng-model="userType" btn-radio="'business'" ng-click="userTypeChanged()">Business</label>
   </div>
   <br/><br/>
 </div>

@@ -103,6 +103,46 @@ angular.module('solidWasteFinderApp')
     $scope.tableRowClicked = function (facility) {
       map.setView([facility.geometry.coordinates[1], facility.geometry.coordinates[0]], 16);
     };
+
+    var searchByZip = function (zip) {
+      var q = L.esri.Tasks.query({url: 'https://maps.raleighnc.gov/arcgis/rest/services/Boundaries/MapServer/12'});
+      q.where("ZIPNUM = " + zip);
+      q.run(function (error, featureCollection) {
+          var center = turf.centroid(featureCollection);
+          from = center;
+          addLocationToMap([center.geometry.coordinates[1], center.geometry.coordinates[0]]);
+          $scope.query();
+        }
+      );
+    };
+
+    var geocode = function (text) {
+      $http({
+        url: 'https://maps.raleighnc.gov/arcgis/rest/services/Locators/Locator/GeocodeServer/findAddressCandidates',
+        method: 'GET',
+        params: {
+          'Single Line Input': text,
+          outSR: 4326,
+          f: 'json'
+        }
+      }).success(function (data) {
+        if (data.candidates.length > 0) {
+          var loc = L.esri.Util.arcgisToGeojson(data.candidates[0].location);
+          loc = { type: 'Feature', properties: {}, geometry: loc};
+          from = loc;
+          addLocationToMap([loc.geometry.coordinates[1], loc.geometry.coordinates[0]]);
+          $scope.query();           
+        }
+      });
+    }
+
+    $scope.searchByLocation = function (input) {
+      if (/^\d+$/.test(input) && input.length === 5) {
+        searchByZip(input);
+      } else {
+        geocode(input);
+      }
+    };
     var createMap = function () {
       map = L.map('map').setView([35.81889, -78.64447], 10);
       L.esri.basemapLayer('Gray').addTo(map);
