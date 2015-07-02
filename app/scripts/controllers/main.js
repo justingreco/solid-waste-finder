@@ -149,9 +149,24 @@ angular.module('solidWasteFinderApp')
       facilities = L.esri.featureLayer('http://maps.wakegov.com/arcgis/rest/services/Environmental/SWFacilities/MapServer/0', {
         cacheLayers: false,
        pointToLayer: function (geojson, latlng) {
+          var color = 'blue';
+          switch (geojson.properties.CATEGORY) {
+            case 'multimaterial':
+              color = 'green';
+            break;
+            case 'convenience':
+              color = 'blue';
+            break;
+            case 'municipal':
+              color = 'purple';
+            break;
+            case 'household':
+              color = 'orange';
+            break;
+          }
           var blueMarker = L.AwesomeMarkers.icon({
             icon: 'trash',
-            markerColor: 'blue'
+            markerColor: color
           });
           return L.marker(latlng, {
             icon: blueMarker
