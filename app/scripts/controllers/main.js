@@ -144,8 +144,10 @@ angular.module('solidWasteFinderApp')
       }
     };
     var createMap = function () {
-      map = L.map('map').setView([35.81889, -78.64447], 10);
-      L.esri.basemapLayer('Gray').addTo(map);
+      map = L.map('map').setView([35.80, -78.64447], 10);
+      var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+      }).addTo(map);
       facilities = L.esri.featureLayer('http://maps.wakegov.com/arcgis/rest/services/Environmental/SWFacilities/MapServer/0', {
         cacheLayers: false,
        pointToLayer: function (geojson, latlng) {
@@ -171,6 +173,11 @@ angular.module('solidWasteFinderApp')
           return L.marker(latlng, {
             icon: blueMarker
           });
+        }
+      }).addTo(map);
+      L.esri.featureLayer('http://maps.raleighnc.gov/arcgis/rest/services/BaseMapBasic/MapServer/0', {
+        style: function (feature) {
+          return {color: 'black', weight: 2, fillOpacity: 0, opacity: 0.10};
         }
       }).addTo(map);
       facilities.bindPopup(function (feature) {
